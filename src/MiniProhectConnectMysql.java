@@ -16,21 +16,22 @@ public class MiniProhectConnectMysql {
         final String DB_URL = "jdbc:mysql://localhost/world";
         final String USER = "root";
         final String PASS = "tbrs00002b";
-        final String QUERY = "select ID,Name,Population " +
-                        "from city " +
+        final String QUERY = "select Code,Name,Continent, Region " +
+                        "from country " +
                         "where 1 = 1 " +
-                        "and Population >=9230000 ";
+                        "and Name Like '%an%' ";
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(QUERY);
             while (rs.next()) {
                 // Retrieve by column name
-                System.out.print("ID: " + rs.getInt("ID"));
+                System.out.print("Code: " + rs.getString("Code"));
                 System.out.print(", Name: " + rs.getString("Name"));
-                System.out.print(", Population: " + rs.getInt("Population"));
+                System.out.print(", Continent: " + rs.getString("Continent"));
+                System.out.print(", Region: " + rs.getString("Region"));
              }
-             
+
         }catch (SQLException e) {
             e.printStackTrace(); 
     }
