@@ -1,15 +1,46 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class MiniProhectConnectMysql {
-
-    public static void main(String[] arg){
-        // 1. My Sql 실행
-        // 2. Database - Connect to Database 
-        // 3. Default Schema에 'world' 입력 후 Ok 버튼
-        // 4. world Schema에 볼드체로 연결이 되었는지 확인
-        // 5. 쿼리 추가
-        // 6. select * from city 를 실행 후 테이블이 Action Output에 오류가 안나는지 확인
-        // 7. Table에 Column들이 제대로 나왔는지 확인 (ID, Name, CountryCode, District, Population)
+    public static void main(String[] args) {
+        // run MySQL Workbench
+        // connect to DataBase
+        // Hostname: localhost  port: 3306
+        // Username: root
+        // Default Schema : world
+        // password : tbrs00002b
+        // access to 'World' DB
+        final String DB_URL = "jdbc:mysql://localhost/world";
+        final String USER = "root";
+        final String PASS = "tbrs00002b";
+        final String QUERY = "select ID,Name,Population " +
+                        "from city " +
+                        "where 1 = 1 " +
+                        "and Population >=9230000 ";
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(QUERY);
+            while (rs.next()) {
+                // Retrieve by column name
+                System.out.print("ID: " + rs.getInt("ID"));
+                System.out.print(", Name: " + rs.getString("Name"));
+                System.out.print(", Population: " + rs.getInt("Population"));
+             }
+             
+        }catch (SQLException e) {
+            e.printStackTrace(); 
+    }
         
+        // Make new SQL tab for executing query
+        // Select * from City
+        // print World.City
 
+
+        return;
     }
     
 }
